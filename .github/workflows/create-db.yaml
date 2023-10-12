@@ -32,10 +32,8 @@ jobs:
           fetch-depth: 0
       - name: Create DB
         run: |
-          pwd
-          ls
-          chmod +x scripts/create_db.sh
-          ./scripts/create_db.sh ${{ inputs.db-size }} ${{ inputs.db-version }}
+          chmod +x script/create_db.sh
+          ./script/create_db.sh ${{ inputs.db-size }} ${{ inputs.db-version }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
