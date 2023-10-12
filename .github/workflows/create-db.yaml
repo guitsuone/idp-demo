@@ -1,0 +1,47 @@
+name: Create App With DB
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        description: "Environment to deploy app to (production, staging, development)"
+        type: string
+        default: "production"
+#      host:
+#        required: true
+#        description: "Application host name"
+#        type: string
+#        default: "acme.com"
+      db-version:
+        required: true
+        description: "Database version"
+        type: string
+        default: "13"
+      db-size:
+        required: true
+        description: "Database size (small, medium, large)"
+        type: string
+        default: "medium"
+jobs:
+  deploy-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Create DB
+        run: |
+          chmod +x scripts/create_db.sh
+          ./scripts/create_db.sh ${{ inputs.db-size }} ${{ inputs.db-version }}
+      - name: Commit changes
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit -m "Deploy ${{ inputs.name }} to ${{ inputs.environment }}"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

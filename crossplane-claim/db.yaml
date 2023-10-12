@@ -7,9 +7,9 @@ spec:
   id: silly-demo
   compositionSelector:
     matchLabels:
-      type: backend-db-aws
+      type: db-aws
       location: local
   parameters:
     db:
       version: "14.0"
-      size: medium
+      size: small
