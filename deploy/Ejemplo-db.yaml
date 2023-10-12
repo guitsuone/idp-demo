@@ -1,0 +1,15 @@
+---
+apiVersion: devopstoolkitseries.com/v1alpha1
+kind: SQLClaim
+metadata:
+  name: Ejemplo
+spec:
+  id: Ejemplo
+  compositionSelector:
+    matchLabels:
+      type: db-aws
+      location: local
+  parameters:
+    db:
+      version: "22"
+      size: large
