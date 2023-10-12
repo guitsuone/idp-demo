@@ -21,7 +21,7 @@ on:
         required: true
         description: "Database size (small, medium, large)"
         type: string
-        default: "medium"
+        default: "small"
 jobs:
   deploy-app:
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
       - name: Create DB
         run: |
           chmod +x script/create_db.sh
-          ./script/create_db.sh ${{ inputs.name }} ${{ inputs.db-size }} ${{ inputs.db-version }}
+          ./script/create_db.sh ${{ inputs.name }} ${{ inputs.db-version }} ${{ inputs.db-size }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
