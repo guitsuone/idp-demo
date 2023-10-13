@@ -2,6 +2,11 @@ name: Create App With DB
 on:
   workflow_dispatch:
     inputs:
+      name:
+        required: true
+        description: "name database"
+        type: string
+        default: "idp-database-demo"    
       environment:
         required: true
         description: "Environment to deploy app to (production, staging, development)"
@@ -33,7 +38,7 @@ jobs:
       - name: Create DB
         run: |
           chmod +x script/create_db.sh
-          ./script/create_db.sh Ejemplo ${{ inputs.db-version }} ${{ inputs.db-size }}
+          ./script/create_db.sh ${{ inputs.name }} ${{ inputs.db-version }} ${{ inputs.db-size }}
       - name: Commit changes
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
