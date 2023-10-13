@@ -1,0 +1,15 @@
+---
+apiVersion: devopstoolkitseries.com/v1alpha1
+kind: SQLClaim
+metadata:
+  name: hola5
+spec:
+  id: hola5
+  compositionSelector:
+    matchLabels:
+      type: db-aws
+      location: local
+  parameters:
+    db:
+      version: "13"
+      size: medium
